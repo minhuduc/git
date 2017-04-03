@@ -1,1 +1,2 @@
 MinhDuc start Git
+The second edit.
