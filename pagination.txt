@@ -1,0 +1,55 @@
+
+$per_page = 3;
+                        
+if(isset($_GET['page'])){
+    $page = $_GET['page'];
+    $page = $page*$per_page - $per_page;
+} else {
+    $page = "0";
+}
+
+if($page <=0){
+    $page = "0";
+}
+
+$query = mysqli_query($connection, "SELECT * FROM news, category WHERE news.category_id = category.cate_id LIMIT $page,$per_page");
+                        
+                        
+$query_find_count = mysqli_query($connection, "SELECT * FROM news");
+$count = mysqli_num_rows($query_find_count);
+$count = ceil($count / $per_page);
+
+
+
+while($row = mysqli_fetch_array($query)){
+   ?> 
+    
+<div class="col-sm-6">
+<img src="images/crypto-news-6-600x450.jpg" alt="">
+<h4 class="pt-20"><a href="#"><b><?php echo $row['news_title']; ?></b></a></h4>
+<ul class="list-li-mr-20 pt-10 mb-30">
+<li class="color-lite-black">by <a href="#" class="color-black"><b><?php echo $row["cate_title"]; ?></b></a></li>
+</ul>
+</div><!-- col-sm-6 -->
+
+
+<nav aria-label="Page navigation example">
+<ul class="pagination justify-content-center">
+
+<?php 
+
+for($i = 1; $i <= $count; $i++){
+   
+   if($i == $page){
+       echo "<li class='page-item disabled'><a class='page-link' href='news.php?page={$i}'>{$i}</a></li>";
+   } else {
+       echo "<li class='page-item'><a class='page-link' href='news.php?page={$i}'>{$i}</a></li>";
+   }
+   
+}
+
+?>
+
+
+</ul>
+</nav>
