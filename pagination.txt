@@ -12,14 +12,11 @@ if($page <=0){
     $page = "0";
 }
 
-$query = mysqli_query($connection, "SELECT * FROM news, category WHERE news.category_id = category.cate_id LIMIT $page,$per_page");
-                        
+$query = mysqli_query($connection, "SELECT * FROM news, category WHERE news.category_id = category.cate_id LIMIT $page,$per_page");                       
                         
 $query_find_count = mysqli_query($connection, "SELECT * FROM news");
 $count = mysqli_num_rows($query_find_count);
 $count = ceil($count / $per_page);
-
-
 
 while($row = mysqli_fetch_array($query)){
    ?> 
@@ -31,7 +28,6 @@ while($row = mysqli_fetch_array($query)){
 <li class="color-lite-black">by <a href="#" class="color-black"><b><?php echo $row["cate_title"]; ?></b></a></li>
 </ul>
 </div><!-- col-sm-6 -->
-
 
 <nav aria-label="Page navigation example">
 <ul class="pagination justify-content-center">
@@ -49,7 +45,5 @@ for($i = 1; $i <= $count; $i++){
 }
 
 ?>
-
-
 </ul>
 </nav>
